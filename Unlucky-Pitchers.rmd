@@ -1,0 +1,78 @@
+---
+title: "Unlucky Pitcher Graphic"
+author: "Garrett Johnson"
+date: "2025-05-13"
+output: html_document
+---
+
+```{r}
+# Load required libraries
+library(ggplot2)
+library(ggrepel)
+library(dplyr)
+library(ggforce)
+library(tidyverse)
+```
+
+## R Markdown
+
+
+```{r}
+# Read CSV
+pitchers <- read.csv("C:/Users/garre/OneDrive/Attachments/Softball/Unlucky Pitchers 2024.csv")
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r}
+ggplot(data = pitchers, aes(x = barrell_hard_hit, y = BABIP, color = k_rate)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(
+    title = "Distribution of Hard Hit Rate and Barrell Rate against BABIP",
+    x = "Hard Hit Rate Plus Barrell Rate",
+    y = "BABIP")
+```
+
+
+```{r}
+model <- lm(BABIP ~ barrell_hard_hit + ground_ball_rate + fly_ball_rate + k_rate, data = pitchers)
+pitchers$luck_residual <- resid(model)
+
+pitchers <- pitchers |>
+  mutate(Label = ifelse(luck_residual > .025 | luck_residual < -.025, Pitcher.Name, ""))
+
+ggplot(pitchers, aes(x = luck_residual, y = BABIP)) +
+  geom_point() +
+  geom_text_repel(aes(label = Label), max.overlaps = Inf) +
+  labs(title = "Residuals from BABIP Model", x = "Residual (Observed - Predicted)", y = "BABIP")
+```
+
+```{r}
+model <- lm(era ~ barrell_hard_hit + ground_ball_rate + fly_ball_rate + k_rate, data = pitchers)
+pitchers$luck_residual <- resid(model)
+
+pitchers <- pitchers %>%
+  mutate(Label = ifelse(luck_residual > 1 | luck_residual < -0.75, Pitcher.Name, ""))
+
+ggplot(pitchers, aes(x = luck_residual, y = era)) +
+  geom_point() +
+  geom_text_repel(aes(label = Label), max.overlaps = Inf) +
+  labs(title = "ERA Residual vs. Actual ERA", x = "ERA Residual", y = "ERA")
+```
+
+```{r}
+ggplot(pitchers, aes(x = difference, y = era, color = k_rate)) +
+  geom_point() 
+#Create the Label column in the data
+pitchers <- pitchers |>
+  mutate(Label = ifelse((difference > 0.75 & era > 4.5) | (difference < -0.75 & era < 3.5), Pitcher.Name, ""))
+
+#Create the plot
+ggplot(pitchers, aes(x = difference, y = era)) +
+  geom_point() +
+  geom_text_repel(aes(label = Label), max.overlaps = Inf) +
+  labs(title = "Difference in ERA and xERA in relation to ERA", x = "ERA - xERA", y = "ERA")
+```
