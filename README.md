@@ -1,15 +1,21 @@
-# Pitcher-Luck
-The voyage to find the pitchers of 2024 who got the luckiest and the unluckiest.
+Exploring the Luckiest and Unluckiest Pitchers of 2024
 
-Graph 1: Showcases the distribution of hard hit rate + barrell rate against BABIP. What this does  is take a look at the pitchers who typically give up harder contact and pitches on the sweet spot. By plugging it against their BABIP it can tell us who is giving up a lot of hits when balls are in play and which pitchers are getting more outs.
+This analysis is focused on identifying which pitchers in 2024 have benefited from luck — or been hurt by misfortune — based on the contact quality of balls hit against them.
 
-Graph 2: This graph takes a look at the residual in comparison to the babip. This shows the points closer to the middle (0.00) are closer to their predicted with their observed BABIP. The pitchers on the far right have predicted BABIP's a lot lower than what was observed which could possible mean they are getting unlucky on the mound. The points on the far left are the pitchers who have predicted BABIPs that are a lot higher than what is observes meaning they are probably luckier on the balls in play. 
+Graph 1: Hard-Hit & Barrel Rate vs. BABIP
+This graph shows the relationship between how hard a pitcher is getting hit (using hard-hit rate + barrel rate) and their Batting Average on Balls in Play (BABIP). Pitchers who allow harder contact are expected to have higher BABIPs. Comparing these metrics helps reveal which pitchers are giving up more hits than expected — or getting outs despite poor contact quality.
 
-Graph 3: I'm checking my model to see if era and the residual I created for era matchup with my second graph as far as showcasing pitchers on further ends of the scatterplot. It's very similar results.
+Graph 2: Residuals vs. BABIP
+Here, we compare the difference between predicted and actual BABIP (residuals). Points near zero indicate pitchers whose observed BABIP closely matches what's expected based on contact quality. Pitchers on the far right have much higher observed BABIPs than predicted — suggesting they’ve been unlucky. Those on the far left have lower observed BABIPs than expected, indicating potential good fortune.
 
-Graph 4: Takes a look at the difference in xERA and actual ERA and sees how it's distributed against ERA. What this does is check Graph 3 and make sure my residual model is accurate when testing whether pitchers are unlucky or not. 
+Graph 3: ERA Residuals Check
+This graph cross-validates the second one by looking at ERA and its residuals. We're checking whether the same "lucky" and "unlucky" pitchers stand out here too. The results are largely consistent with what we saw in Graph 2.
 
-Findings: From the graphs it looks like Ronel Blanco and Bryce Miller were the luckiest pitchers of 2024. They showed up on the far left side of all graphs showcasing how based on hitters contact they should be giving up more hits and have higher ERAs. As far as unlucky pitchers go, we have Jordan Montgomery and Tyler Mahle. Based on the data we can see they still aren't the best pitchers but based on xERA and the predicted points we got, they should be well under their observed points.
+Graph 4: xERA vs. ERA Difference
+This final graph compares the difference between expected ERA (xERA) and actual ERA, plotted against ERA itself. It serves as a further check on the reliability of the residuals model and reinforces whether a pitcher’s performance is due to skill or variance.
 
-Why does this matter?
-- This matters because there is always more than what meets the eye when looking at baseball games. 
+Findings:
+The data suggests Ronel Blanco and Bryce Miller were among the luckiest pitchers in 2024 — consistently showing up on the far left in multiple graphs, meaning their stats likely overstate their performance. On the flip side, Jordan Montgomery and Tyler Mahle appear to be unlucky. While they’re not elite by any means, the models suggest they’ve been performing better than their surface-level stats (like ERA and BABIP) indicate.
+
+Why It Matters:
+Baseball is full of nuances, and raw stats don’t always tell the full story. By digging deeper into expected outcomes and actual results, we can better understand pitcher performance — and separate luck from skill.
